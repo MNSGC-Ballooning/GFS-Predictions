@@ -201,7 +201,7 @@ class Predictor:
 
 if __name__ == '__main__':
 	predictor = Predictor()
-	predictor.createAltPlan(30,datetime.datetime.now(),300,33000,5,7)
+	predictor.createAltPlan(30,datetime.datetime.strptime('Apr 7 2018  11:00AM', '%b %d %Y %I:%M%p'),300,30000,5,7)
 	predictor.importDatasets()
-	predictor.runPrediction(45,-93)
+	predictor.runPrediction(44.7207,-94.4818)
 
