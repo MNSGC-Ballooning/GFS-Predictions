@@ -16,6 +16,11 @@ import webbrowser, os
 import time
 import scipy.io
 
+from matplotlib.figure import Figure
+from matplotlib.backends.backend_qt4agg import (
+    FigureCanvasQTAgg as FigureCanvas,
+    NavigationToolbar2QT as NavigationToolbar)
+
 from html import *
 
 googleMapsApiKey = ''			# https://developers.google.com/maps/documentation/javascript/get-api-key
@@ -702,20 +707,17 @@ class MainWindow(QMainWindow,Ui_MainWindow):
 		self.timeMinEdit.setDateTime(datetime.datetime.now())
 		self.timeMaxEdit.setDateTime(datetime.datetime.now() + datetime.timedelta(1))
 
-		# # Map Setup
-		# self.mapView = PyQt4.QtWebKit.QWebView(self)
-		# self.mapView.setPage(WebView(self))
-		# self.mapLayout = QtGui.QVBoxLayout()
-		# self.mapLayout.addWidget(self.mapView)
-		# self.webWidget.setLayout(self.mapLayout)
-		# self.map = self.mapView.page().mainFrame()
-		# self.map.loadFinished.connect(self.handleLoadFinished)		# Connect the function to the signal
-		# self._proxy = Proxy(self)
-		# self.dragged = False			# Helps set the initial ground station location so that it's not far from the path
-
-		# Map Helper
-		# self.edit = QLineEdit()										# An object that can hold the information return from the javascript
-		# self.edit.textChanged.connect(self.updateGroundLocation)	# Connect a change in line edit to update the information
+		# Alt Profile Graph Setup
+		self.figure = Figure()
+		self.canvas = FigureCanvas(self.figure)
+		self.canvas.setParent(self.altProfileWidget)
+		self.canvas.setFocusPolicy(Qt.StrongFocus)
+		self.canvas.setFocus()
+		self.mpl_toolbar = NavigationToolbar(self.canvas, self.altProfileWidget)
+		vbox = QVBoxLayout()
+		vbox.addWidget(self.canvas)  			# the matplotlib canvas
+		vbox.addWidget(self.mpl_toolbar)
+		self.altProfileWidget.setLayout(vbox)
 
 		self.tabWidget.setCurrentIndex(0)		# Set the tab to the inputs tab when you open
 
@@ -723,6 +725,34 @@ class MainWindow(QMainWindow,Ui_MainWindow):
 		""" Connects things from JavaScript to the proxy class """
 
 		self.map.addToJavaScriptWindowObject('qt', self._proxy)		# Connect the load finished to the proxy
+
+	def makePlot(self):
+		""" Generates the plots based on the file selected and the ground station location """
+		
+		# Reset the arrays
+		altProfileTime = np.array([])
+		altProfileAlt = np.array([])
+
+		# Fill the arrays with the data
+		for each in self.altProfile:
+			altProfileTime = np.append(altProfileTime,each.time)
+			altProfileAlt = np.append(altProfileAlt,each.alt)
+
+		try:
+			# create an axis
+			ax = self.figure.add_subplot(111)
+			ax.clear()
+			
+			# plot data for predictions
+			ax.plot(altProfileTime,altProfileAlt,'r-')
+			ax.set_ylabel('Altitude (m)')
+			ax.set_xlabel('Time (s)')
+
+			# refresh canvas
+			self.canvas.draw()
+
+		except Exception, e:
+			print(str(e))
 
 	def updatePinLocation(self):
 		""" Updates the instance variables, and determines the altitude """
@@ -981,6 +1011,7 @@ class MainWindow(QMainWindow,Ui_MainWindow):
 		if not self.altProfileFile == '':
 			self.altProfile = self.readAltProfileFromFile(self.altProfileFile)
 			self.altProfileLabel.setText(self.altProfileFile)					# Display the file path
+			self.makePlot()
 
 	def updateDownloadBrowser(self, text):
 		self.downloadBrowser.append(text)

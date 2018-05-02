@@ -21,38 +21,21 @@
        <enum>QTabWidget::North</enum>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="inputTab">
        <attribute name="title">
         <string>Inputs</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_2">
-        <item row="0" column="0">
-         <widget class="QPushButton" name="getGFSDataFile">
+        <item row="8" column="0">
+         <widget class="QPushButton" name="runSimulationButton">
           <property name="text">
-           <string>Select GFS Data</string>
+           <string>Run Simulation</string>
           </property>
          </widget>
         </item>
-        <item row="3" column="0">
-         <widget class="QLabel" name="launchSiteLabel">
-          <property name="text">
-           <string>Launch Site</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="2">
-         <widget class="QLabel" name="altProfileLabel">
-          <property name="text">
-           <string>No Altitude Profile Selected</string>
-          </property>
-         </widget>
-        </item>
-        <item row="8" column="0" colspan="3">
+        <item row="9" column="0" colspan="3">
          <widget class="QProgressBar" name="simulationProgress">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -72,27 +55,30 @@
           </property>
          </widget>
         </item>
-        <item row="7" column="0">
-         <widget class="QPushButton" name="runSimulationButton">
+        <item row="5" column="2">
+         <widget class="QDateTimeEdit" name="launchDateTimeEntry"/>
+        </item>
+        <item row="5" column="0">
+         <widget class="QLabel" name="launchTimeLabel">
           <property name="text">
-           <string>Run Simulation</string>
+           <string>Launch Time</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
           </property>
          </widget>
         </item>
-        <item row="3" column="2">
-         <widget class="QLineEdit" name="latEntryBox">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
+        <item row="4" column="0">
+         <widget class="QLabel" name="launchSiteLabel">
+          <property name="text">
+           <string>Launch Site</string>
           </property>
-          <property name="placeholderText">
-           <string>45</string>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
           </property>
          </widget>
         </item>
-        <item row="3" column="3">
+        <item row="4" column="3">
          <widget class="QLineEdit" name="lonEntryBox">
           <property name="placeholderText">
            <string>-93</string>
@@ -117,18 +103,35 @@
           </property>
          </widget>
         </item>
-        <item row="4" column="0">
-         <widget class="QLabel" name="launchTimeLabel">
+        <item row="1" column="2">
+         <widget class="QLabel" name="altProfileLabel">
           <property name="text">
-           <string>Launch Time</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
+           <string>No Altitude Profile Selected</string>
           </property>
          </widget>
         </item>
         <item row="4" column="2">
-         <widget class="QDateTimeEdit" name="launchDateTimeEntry"/>
+         <widget class="QLineEdit" name="latEntryBox">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="placeholderText">
+           <string>45</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QPushButton" name="getGFSDataFile">
+          <property name="text">
+           <string>Select GFS Data</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0" colspan="4">
+         <widget class="QWidget" name="altProfileWidget" native="true"/>
         </item>
        </layout>
       </widget>
