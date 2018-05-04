@@ -98,19 +98,19 @@ if __name__ == '__main__':
 	filename = raw_input('Alt Profile Name: ')
 
 	if profileType == 'B':
-		timeStep = float(raw_input('Timestep: '))
-		startAlt = float(raw_input('Start Alt: '))
-		maxAlt = float(raw_input('Max Alt: '))
-		ascentRate = float(raw_input('Ascent Rate: '))
-		descentRate = float(raw_input('Descent Rate: '))
+		timeStep = float(raw_input('Timestep (s): '))
+		startAlt = float(raw_input('Start Alt (m): '))
+		maxAlt = float(raw_input('Max Alt (m): '))
+		ascentRate = float(raw_input('Ascent Rate (m/s): '))
+		descentRate = float(raw_input('Descent Rate (m/s): '))
 		altPlan = createBurstAltPlan(timeStep,startAlt,maxAlt,ascentRate,descentRate)
 	elif profileType == 'F':
-		timeStep = float(raw_input('Timestep: '))
-		startAlt = float(raw_input('Start Alt: '))
-		floatAlt = float(raw_input('Float Alt: '))
-		floatTime = float(raw_input('Float Time: '))
-		ascentRate = float(raw_input('Ascent Rate: '))
-		descentRate = float(raw_input('Descent Rate: '))
+		timeStep = float(raw_input('Timestep (s): '))
+		startAlt = float(raw_input('Start Alt (m): '))
+		floatAlt = float(raw_input('Float Alt (m): '))
+		floatTime = float(raw_input('Float Time (s): '))
+		ascentRate = float(raw_input('Ascent Rate (m/s): '))
+		descentRate = float(raw_input('Descent Rate (m/s): '))
 		altPlan = createFloatAltPlan(timeStep,startAlt,floatAlt,floatTime,ascentRate,descentRate)
 
 	# timeStep = 30
