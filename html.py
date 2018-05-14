@@ -12,6 +12,16 @@ def getHTML(locations, apiKey):
 		allPoints += temp
 	allPoints = allPoints[:-1]
 
+	# Determine the burst location
+	maxAlt = locations[0].alt
+	maxIndex = 0
+	i = 0
+	for each in locations:
+		if each.alt > maxAlt:
+			maxIndex = i
+			maxAlt = each.alt
+		i+=1
+
 
 	### The HTML and JavaScript is a formatted string, this allows for a Google Maps widget ###
 	html = '''
@@ -49,6 +59,11 @@ def getHTML(locations, apiKey):
                 strokeOpacity: 1.0,
                 strokeWeight: 2
             });
+	
+			var marker = new google.maps.Marker({
+				map: map,
+				position: {lat: ''' + str(locations[maxIndex].lat) + ''', lng: ''' + str(locations[maxIndex].lon) + '''}
+			})
 	    }
 	</script>
 
