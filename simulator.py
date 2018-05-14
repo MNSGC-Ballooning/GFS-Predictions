@@ -90,7 +90,8 @@ class GFSRetriever(QtCore.QObject):
 		'''
 
 		# Get the base GFS Url
-		gfsdatetime = self.dateTimeMin
+		gfsdatetime = datetime.datetime.now()
+		#gfsdatetime = self.dateTimeMin
 		baseurl, gfsdatetime = self.getGFSUrl(gfsdatetime)
 		print(baseurl)
 		print(gfsdatetime)
